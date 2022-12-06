@@ -14,7 +14,7 @@ def find_ISS():
     iss_latitude = float(data["iss_position"]["latitude"])
     iss_longitude = float(data["iss_position"]["longitude"])
     #Your position is within +5 or -5 degrees of the ISS position.
-    if iss_latitude < MY_LAT+5 and iss_latitude > MY_LAT-5 and iss_longitude < MY_LONG+5 and iss_longitude > MY_LONG-5:
+    if MY_LAT-5 <= iss_latitude <= MY_LAT+5 and MY_LONG-5 <= iss_longitude <= MY_LONG+5:
         return True
     else:
         print("za daleko")
@@ -34,7 +34,7 @@ def check_night():
 
     time_now_hour = datetime.now().hour
     
-    if time_now_hour < sunrise or time_now_hour > sunset:
+    if time_now_hour <= sunrise or time_now_hour >= sunset:
         print("noc")
         return True
 
