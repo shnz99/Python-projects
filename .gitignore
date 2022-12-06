@@ -10,6 +10,7 @@ __pycache__/
 .Python
 .d*/
 .data*
+d_*
 build/
 develop-eggs/
 dist/

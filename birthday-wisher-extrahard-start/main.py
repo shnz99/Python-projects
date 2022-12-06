@@ -6,7 +6,7 @@ import smtplib
 
 PLACEHOLDER = "[NAME]"
 MY_EMAIL = "riderek92@gmail.com"
-PASSWORD_GMAIL = "biakfcngewzztxqc"
+PASSWORD_GMAIL = "******************"
 
 def send_mail(to_email, mail_content):
     connection = smtplib.SMTP("smtp.gmail.com", port=587)
