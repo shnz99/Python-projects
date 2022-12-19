@@ -28,21 +28,21 @@ latest_trading_day = stock_data["Global Quote"]["07. latest trading day"]
 if (
     float(percent_change[:-1]) > 2 or float(percent_change[:-1]) < 2
 ):  # float because it is conversion from string to % and slice with -1 because symbol % at the end in json
-    print("Get News!")
+    ## STEP 2: Use https://newsapi.org
+    # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
+    news_api_params = {
+        "apiKey": news_api_key,
+        "q": COMPANY_NAME,
+        "from": latest_trading_day,
+    }
+    news_api = requests.get(
+        url="https://newsapi.org/v2/everything", params=news_api_params
+    )
+    news_api.raise_for_status()
 
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
-news_api_params = {
-    "apiKey": news_api_key,
-    "q": COMPANY_NAME,
-    "from": latest_trading_day,
-}
-news_api = requests.get(url="https://newsapi.org/v2/everything", params=news_api_params)
-news_api.raise_for_status()
-
-news_data = news_api.json()
-articles = news_data["articles"][:5]
-print(f"{articles[0]}\n{articles[1]}\n{articles[2]}")
+    news_data = news_api.json()
+    articles = news_data["articles"][:5]
+    print(f"{articles[0]}\n{articles[1]}\n{articles[2]}")
 
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number.
