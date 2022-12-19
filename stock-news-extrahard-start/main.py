@@ -50,12 +50,20 @@ if (
 
     news_data = news_api.json()
     articles = news_data["articles"][:3]
-    # print(f"{articles[0]}\n{articles[1]}\n{articles[2]}")
 
     ## STEP 3: Use https://www.twilio.com
     # Send a seperate message with the percentage change and each article's title and description to your phone number.
     client = Client(twilio_acc_sid, twilio_acc_auth)
-    message = client.messages.create(body="", from_=twilio_sender_num)
+    for i in range(3):
+        title = articles[i]["title"]
+        description = articles[i]["description"]
+
+        message = client.messages.create(
+            body=f"{COMPANY_NAME}: {percent_change}\n1. Headline: {title}\nBrief: {description}",
+            from_=twilio_sender_num,
+            to=your_num,
+        )
+        print(message.status)
 
 # Optional: Format the SMS message like this:
 """
