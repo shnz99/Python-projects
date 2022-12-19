@@ -1,11 +1,19 @@
+from email import message
+from http import client
 import os
+from pydoc import cli
 import requests
+from twilio.rest import Client
 
 STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
 alphavantage_api_key = os.environ.get("ALPHAVANTAGE_API_KEY")
 news_api_key = os.environ.get("NEWS_API")
+twilio_acc_sid = os.environ.get("TWILIO_SID")
+twilio_acc_auth = os.environ.get("TWILIO_AUTH")
+twilio_sender_num = os.environ.get("TWILIO_NUMBER")
+your_num = os.environ.get("YOUR_NUMBER")
 
 ## STEP 1: Use https://www.alphavantage.co
 # When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
@@ -41,12 +49,13 @@ if (
     news_api.raise_for_status()
 
     news_data = news_api.json()
-    articles = news_data["articles"][:5]
-    print(f"{articles[0]}\n{articles[1]}\n{articles[2]}")
+    articles = news_data["articles"][:3]
+    # print(f"{articles[0]}\n{articles[1]}\n{articles[2]}")
 
-## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number.
-
+    ## STEP 3: Use https://www.twilio.com
+    # Send a seperate message with the percentage change and each article's title and description to your phone number.
+    client = Client(twilio_acc_sid, twilio_acc_auth)
+    message = client.messages.create(body="", from_=twilio_sender_num)
 
 # Optional: Format the SMS message like this:
 """

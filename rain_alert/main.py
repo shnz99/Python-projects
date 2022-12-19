@@ -6,6 +6,7 @@ from twilio.rest import Client
 api_id = os.environ.get("OWM_API_ID")
 account_sid = os.environ.get("TWILIO_SID")
 auth_token = os.environ.get("TWILIO_AUTH")
+twilio_sender_num = os.environ.get("TWILIO_NUMBER")
 
 LAT = os.environ.get("MY_LAT")
 LON = os.environ.get("MY_LON")
@@ -37,7 +38,7 @@ if will_rain == True:
     client = Client(account_sid, auth_token)
     message = client.messages.create(
         body="It's going to rain today. Remember to bring an umbrella ☔",
-        from_="+19499896217",
+        from_=twilio_sender_num,
         to=os.environ.get("YOUR_NUMBER"),
     )
     print(message.status)
