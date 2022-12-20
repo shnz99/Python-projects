@@ -34,7 +34,7 @@ percent_change = stock_data["Global Quote"]["10. change percent"]
 latest_trading_day = stock_data["Global Quote"]["07. latest trading day"]
 
 if (
-    float(percent_change[:-1]) > 2 or float(percent_change[:-1]) < 2
+    float(percent_change[:-1]) > 2 or float(percent_change[:-1]) < -2
 ):  # float because it is conversion from string to % and slice with -1 because symbol % at the end in json
     ## STEP 2: Use https://newsapi.org
     # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
@@ -59,7 +59,7 @@ if (
         description = articles[i]["description"]
 
         message = client.messages.create(
-            body=f"{COMPANY_NAME}: {percent_change}\n1. Headline: {title}\nBrief: {description}",
+            body=f"{COMPANY_NAME}: {percent_change}\nHeadline: {title}\nBrief: {description}",
             from_=twilio_sender_num,
             to=your_num,
         )
