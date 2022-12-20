@@ -59,7 +59,7 @@ if (
         description = articles[i]["description"]
 
         message = client.messages.create(
-            body=f"{COMPANY_NAME}: {percent_change}\nHeadline: {title}\nBrief: {description}",
+            body=f"\n{COMPANY_NAME}: {percent_change}\nHeadline: {title}\n\nBrief: {description}",
             from_=twilio_sender_num,
             to=your_num,
         )
