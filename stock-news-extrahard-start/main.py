@@ -54,12 +54,14 @@ if (
     ## STEP 3: Use https://www.twilio.com
     # Send a seperate message with the percentage change and each article's title and description to your phone number.
     client = Client(twilio_acc_sid, twilio_acc_auth)
-    for i in range(3):
-        title = articles[i]["title"]
-        description = articles[i]["description"]
+    for article in articles:
+        formatted_article = {
+            f"\n{COMPANY_NAME}: {percent_change}\nHeadline: {article['title']}\n\nBrief: {article['description']}"
+            for article in articles
+        }
 
         message = client.messages.create(
-            body=f"\n{COMPANY_NAME}: {percent_change}\nHeadline: {title}\n\nBrief: {description}",
+            body=formatted_article,
             from_=twilio_sender_num,
             to=your_num,
         )
