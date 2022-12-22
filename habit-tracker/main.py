@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 import os
 
 USERNAME = "shnz99"
@@ -30,13 +31,30 @@ graph_config = {
 # response_graph = requests.post(url=graph_endpoint, json=graph_config, headers=headers) wystarczy jeden raz uruchomić utworzenie nowego graphu
 # print(response_graph.text)
 
-########################## making updates to the graphs ###########################################################
-update_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPHNAME}"
-update_config = {
-    "date": "20221214",
+########################## making new data in the graphs ###########################################################
+add_endpoint = f"{pixela_endpoint}/{USERNAME}/graphs/{GRAPHNAME}"
+
+today = datetime.now()
+
+add_config = {
+    "date": today.strftime("%Y%m%d"),
     "quantity": "11.5",
 }
-response_update = requests.post(
-    url=update_endpoint, json=update_config, headers=headers
-)
-print(response_update.text)
+# response_add = requests.post(url=add_endpoint, json=add_config, headers=headers)
+# print(response_add.text)
+
+########################## making updates to the graphs ###########################################################
+date_to_update = "20221208"
+update_endpoint = f"{add_endpoint}/{date_to_update}"
+
+update_config = {
+    "quantity": "7",
+}
+# response_update = requests.post(
+#     url=update_endpoint, json=update_config, headers=headers
+# )
+# print(response_update.text)
+########################## making deletes to the graphs ###########################################################
+delete_endpoint = f"{add_endpoint}/{date_to_update}"
+response_delete = requests.post(url=delete_endpoint, headers=headers)
+print(response_delete.text)
