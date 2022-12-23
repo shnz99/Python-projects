@@ -56,5 +56,5 @@ update_config = {
 # print(response_update.text)
 ########################## making deletes to the graphs ###########################################################
 delete_endpoint = f"{add_endpoint}/{date_to_update}"
-response_delete = requests.post(url=delete_endpoint, headers=headers)
+response_delete = requests.delete(url=delete_endpoint, headers=headers)
 print(response_delete.text)
