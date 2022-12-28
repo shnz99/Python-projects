@@ -22,4 +22,9 @@ class DataManager:
         return self.data
 
     def update_doc(self):
-        pass
+        for city in self.data:
+            new_data = {"price": {"iataCode": city["iataCode"]}}
+
+            endpoint = f"{self.endpoint}/{city['id']}"
+            response = requests.put(url=endpoint, json=new_data, headers=self.headers)
+            print(response.text)

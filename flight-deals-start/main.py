@@ -7,7 +7,9 @@ flight_search = FlightSearch()
 
 sheet_data = data_manager.doc_connect()
 
-for city in sheet_data:
-    city["iataCode"] = flight_search.flightSearch(city["city"])
+if sheet_data[0]["iataCode"] == "":
+    for city in sheet_data:
+        city["iataCode"] = flight_search.flightSearch(city["city"])
 
-print(sheet_data)
+data_manager.data = sheet_data
+data_manager.update_doc()
