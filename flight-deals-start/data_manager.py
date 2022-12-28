@@ -28,3 +28,6 @@ class DataManager:
             endpoint = f"{self.endpoint}/{city['id']}"
             response = requests.put(url=endpoint, json=new_data, headers=self.headers)
             print(response.text)
+
+    def checkPrice(self):
+        pass
