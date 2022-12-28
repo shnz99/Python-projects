@@ -2,11 +2,14 @@
 from data_manager import DataManager
 from flight_search import FlightSearch
 from flight_data import FlightData
+from notification_manager import NotificationManager
 
 data_manager = DataManager()
 flightSearch = FlightSearch()
+notificationManager = NotificationManager()
 
 sheet_data = data_manager.doc_connect()
+
 # if sheet_data[0]["iataCode"] == "":
 #     for city in sheet_data:
 #         city["iataCode"] = flight_search.locationSearch(city["city"])
@@ -27,4 +30,4 @@ for city in sheet_data:
                 arrival=data["utc_arrival"],
                 departure=data["utc_departure"],
             )
-            flightData.printingDetails()
+            notificationManager.sendSms(flightData.printingDetails())
