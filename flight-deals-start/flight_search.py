@@ -27,7 +27,7 @@ class FlightSearch:
 
     def flightSearch(self, cityCode):
         search_endpoint = f"{self.endpoint}/v2/search"
-        data = {
+        query = {
             "fly_from": f"city:LON",
             "fly_to": cityCode,
             "date_from": self.today,
@@ -38,5 +38,10 @@ class FlightSearch:
             "one_for_city": 1,
             "max_stopovers": 0,
         }
-        response = requests.get(url=search_endpoint, headers=self.headers, params=data)
+        response = requests.get(url=search_endpoint, headers=self.headers, params=query)
+        try:
+            data = response.json()["data"][0]
+        except IndexError:
+            print(f"No flights found for {cityCode}.")
+            return None
         return response.json()["data"]
