@@ -33,6 +33,10 @@ class FlightSearch:
             "date_from": self.today,
             "date_to": self.date_to,
             "curr": "GBP",
+            "nights_in_dst_from": 7,
+            "nights_in_dst_to": 28,
+            "one_for_city": 1,
+            "max_stopovers": 0,
         }
         response = requests.get(url=search_endpoint, headers=self.headers, params=data)
         return response.json()["data"]

@@ -10,12 +10,12 @@ notificationManager = NotificationManager()
 
 sheet_data = data_manager.doc_connect()
 
-# if sheet_data[0]["iataCode"] == "":
-#     for city in sheet_data:
-#         city["iataCode"] = flight_search.locationSearch(city["city"])
+if sheet_data[0]["iataCode"] == "":
+    for city in sheet_data:
+        city["iataCode"] = flightSearch.locationSearch(city["city"])
 
-# data_manager.data = sheet_data
-# data_manager.update_doc()
+data_manager.data = sheet_data
+data_manager.update_doc()
 
 for city in sheet_data:
     flight_data = flightSearch.flightSearch(city["iataCode"])
