@@ -40,7 +40,7 @@ class DataManager:
             last_name = input("What is your last name?\n")
             email = input("What is your email?\n")
             email2 = input("Type your email again.\n")
-            if email == email2:
+            if email == email2 and email != "":
                 print("You're in the club!")
                 new_data = {
                     "user": {"firstName": name, "lastName": last_name, "email": email}

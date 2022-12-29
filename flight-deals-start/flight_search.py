@@ -39,8 +39,4 @@ class FlightSearch:
             "max_stopovers": 1,
         }
         response = requests.get(url=search_endpoint, headers=self.headers, params=query)
-        try:
-            return response.json()["data"]
-        except IndexError:
-            print(f"No flights found for {cityCode}.")
-            return None
+        return response.json()["data"]
