@@ -28,7 +28,7 @@ class FlightSearch:
     def flightSearch(self, cityCode):
         search_endpoint = f"{self.endpoint}/v2/search"
         query = {
-            "fly_from": f"city:LON",
+            "fly_from": f"city:WAW",
             "fly_to": cityCode,
             "date_from": self.today,
             "date_to": self.date_to,
@@ -36,7 +36,7 @@ class FlightSearch:
             "nights_in_dst_from": 7,
             "nights_in_dst_to": 28,
             "one_for_city": 1,
-            "max_stopovers": 0,
+            "max_stopovers": 1,
         }
         response = requests.get(url=search_endpoint, headers=self.headers, params=query)
         try:

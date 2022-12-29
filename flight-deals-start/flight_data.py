@@ -22,5 +22,5 @@ class FlightData:
         self.departure = departure[:10]
 
     def printingDetails(self):
-        output = f"Low price Alert! Only {self.price}$ to fly from {self.dac}-{self.departure_city} to {self.cityCodeTo}-{self.cityTo}, from {self.arrival} to {self.departure}"
+        output = f"Low price Alert! Only {self.price}$ to fly from {self.dac}-{self.departure_city} to {self.cityCodeTo}-{self.cityTo}, from {self.departure} to {self.arrival}"
         return output
