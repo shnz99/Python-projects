@@ -12,11 +12,12 @@ class DataManager:
             "Authorization": self.sheety_token,
         }
         self.endpoint = (
-            "https://api.sheety.co/e0c39ab4947543a4ce2ba49a5de8751b/flightDeals/prices"
+            "https://api.sheety.co/e0c39ab4947543a4ce2ba49a5de8751b/flightDeals"
         )
 
     def doc_connect(self):
-        response = requests.get(url=self.endpoint, headers=self.headers)
+        endpoint = f"{self.endpoint}/prices"
+        response = requests.get(url=endpoint, headers=self.headers)
         output = response.json()
         self.data = output["prices"]
         return self.data
@@ -25,9 +26,29 @@ class DataManager:
         for city in self.data:
             new_data = {"price": {"iataCode": city["iataCode"]}}
 
-            endpoint = f"{self.endpoint}/{city['id']}"
+            endpoint = f"{self.endpoint}/prices/{city['id']}"
             response = requests.put(url=endpoint, json=new_data, headers=self.headers)
             print(response.text)
 
-    def checkPrice(self):
-        pass
+    def addNewUser(self):
+        while True:
+            print(
+                "Welcome to Damian's Flight CLub.\nWe find the best flight deals and email you."
+            )
+
+            name = input("What is your first name?\n")
+            last_name = input("What is your last name?\n")
+            email = input("What is your email?\n")
+            email2 = input("Type your email again.\n")
+            if email == email2:
+                print("You're in the club!")
+                new_data = {
+                    "user": {"firstName": name, "lastName": last_name, "email": email}
+                }
+                endpoint = f"{self.endpoint}/users"
+                response = requests.post(
+                    url=endpoint, json=new_data, headers=self.headers
+                )
+                break
+            else:
+                print("Error! Mismatched emails!")

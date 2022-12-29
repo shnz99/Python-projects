@@ -10,6 +10,8 @@ notificationManager = NotificationManager()
 
 sheet_data = data_manager.doc_connect()
 
+newUser = data_manager.addNewUser()
+
 if sheet_data[0]["iataCode"] == "":
     for city in sheet_data:
         city["iataCode"] = flightSearch.locationSearch(city["city"])
