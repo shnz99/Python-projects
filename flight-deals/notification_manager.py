@@ -1,5 +1,3 @@
-from email import message
-from http import client
 import os
 from twilio.rest import Client
 
