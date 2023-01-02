@@ -22,14 +22,12 @@ auth_manager = SpotifyOAuth(
 )
 sp = spotipy.Spotify(auth_manager=auth_manager)
 list_of_urls = []
-
 ###################################### download 100 songs from desired time #########################################################
 response = requests.get(url=f"https://www.billboard.com/charts/hot-100/{YEAR}/")
 soup = BeautifulSoup(response.text, "html.parser")
 
 titles = soup.select(".chart-results-list .o-chart-results-list__item h3")
-###################################### #################################### #########################################################
-
+###################################### create list of urls from above songs #########################################################
 for title in titles:
     result = sp.search(
         q=f"track:{title.getText().strip()} year:{YEAR[:4]}",
@@ -44,4 +42,9 @@ for title in titles:
     except IndexError:
         print(f"{title} doesn't exist in Spotify.")
 
-print(list_of_urls)
+# print(list_of_urls)
+#################################### create playlist from songs urls in spotify ######################################################
+playlist = sp.user_playlist_create(
+    user=spotify_user, name=f"{YEAR} Billboard 100", public=False
+)
+sp.playlist_add_items(playlist_id=playlist["id"], items=list_of_urls)
