@@ -32,13 +32,16 @@ titles = soup.select(".chart-results-list .o-chart-results-list__item h3")
 
 for title in titles:
     result = sp.search(
-        q=f"track: {title.getText().strip()} year: {YEAR[:4]}",
+        q=f"track:{title.getText().strip()} year:{YEAR[:4]}",
         limit=1,
         offset=0,
         type="track",
         market=None,
     )
     # pp.pprint(result)
-    list_of_urls.append(result["tracks"]["items"][0]["uri"])
+    try:
+        list_of_urls.append(result["tracks"]["items"][0]["uri"])
+    except IndexError:
+        print(f"{title} doesn't exist in Spotify.")
 
 print(list_of_urls)
