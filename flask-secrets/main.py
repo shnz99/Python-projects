@@ -1,10 +1,18 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, length, email
+from flask_bootstrap import Bootstrap
 
-app = Flask(__name__)
-app.secret_key = 'sfvnoqu3498hfdv'
+def create_app():
+    app = Flask(__name__)
+    app.secret_key = 'sfvnoqu3498hfdv'
+    Bootstrap(app)
+    
+    return app
+    
+app = create_app()
+
 
 class loginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), email(message="You must type a valid email (with '@' and '.')")])
