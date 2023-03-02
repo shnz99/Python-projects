@@ -11,7 +11,6 @@ env = gym.make("CartPole-v1")
 
 model = PPO(MlpPolicy, env, learning_rate=0.01, device="cuda", verbose=1)
 
-# Train the agent for 10000 steps
 TIMESTEPS = 1000
 for _ in range(10):
     model = PPO.load(f"{models_dir}/test-best-model", env=env)
